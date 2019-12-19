@@ -26,7 +26,9 @@
       if (sqlite3_prepare_v2(_linedb, stmt, -1, &statement, NULL) == SQLITE_OK) {
         if (sqlite3_step(statement) == SQLITE_ROW) {
           const unsigned char *result = sqlite3_column_text(statement, 0);
-          imageURL = [NSString stringWithUTF8String:(char *)result];
+          if (result) {
+            imageURL = [NSString stringWithUTF8String:(char *)result];
+          }
         }
         sqlite3_finalize(statement);
       }
